@@ -71,7 +71,7 @@ void reconnectMQTT() {
       mqttClient.subscribe(mqttTopic);
       // mqttClient.publish(mqttTopic, "Websocket Reconnected");
        String message = String("Hello Server From NodeMCU, connected SSID: ") + WiFi.SSID();
-      mqttClient.publish(mqttTopic, msg.c_str());
+      mqttClient.publish(mqttTopic, message.c_str());
       
       Serial.println("[INFO] MQTT Message Sent: " + message);
     } else {
