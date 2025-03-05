@@ -73,7 +73,8 @@ void reconnectMQTT() {
       // mqttClient.publish(mqttTopic, "Websocket Reconnected");
        String message = String("Hello Server From NodeMCU, connected SSID: ") + WiFi.SSID();
       mqttClient.publish(mqttTopic, message.c_str());
-      
+      digitalWrite(gate2Pin, HIGH);  //to make start relay when it connects to internet 
+      digitalWrite(gate1Pin, HIGH);
       Serial.println("[INFO] MQTT Message Sent: " + message);
     } else {
       Serial.println("[ERROR] MQTT Failed. Retrying...");
