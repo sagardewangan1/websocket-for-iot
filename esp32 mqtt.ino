@@ -96,7 +96,7 @@ void mqttCallback(char *topic, byte *payload, unsigned int length) {
     gate1OffTime = 0;
   } else if (message == "GATE1_OFF") {
     digitalWrite(gate1Pin, LOW);
-    mqttClient.publish(mqttTopic, "Gate1 turned off for 5 Sec");
+    mqttClient.publish(mqttTopic, "Gate1_off");
     Serial.println("[INFO] Gate 1 OFF for 5 sec.");
     gate1OffTime = millis();
   } else if (message == "GATE2_ON") {
