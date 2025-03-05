@@ -52,6 +52,7 @@ bool isInternetConnected() {
 void setupWiFi() {
   Serial.println("[INFO] Connecting WiFi...");
   WiFiManager wifiManager;
+ wifiManager.setConnectTimeout(300); // This line is for to wait for avlaible wifi 5 minutes if not then launch wifi manger 
   if (!wifiManager.autoConnect("GateLockAP")) {
     Serial.println("[ERROR] WiFiManager failed. Restarting...");
     ESP.restart();
@@ -156,7 +157,7 @@ void loop() {
         Serial.println("[ERROR] WiFi or Internet lost. Reconnecting...");
         digitalWrite(ledPin, HIGH);
         setRelaysSafe();
-        WiFi.disconnect(true);
+        // WiFi.disconnect(true); this function is used to reset saved wifi dont use it 
         setupWiFi();
         reconnectMQTT();
       } else {
@@ -175,7 +176,7 @@ void loop() {
     if (gate1OffTime != 0 && currentMillis - gate1OffTime >= offDuration) {
       digitalWrite(gate1Pin, HIGH);
       Serial.println("[INFO] Gate 1 auto ON.");
-      mqttClient.publish(mqttTopic, "Gate1 turned on after delay");
+      mqttClient.publish(mqttTopic, "Show_checkout");
       gate1OffTime = 0;
     }
     if (gate2OffTime != 0 && currentMillis - gate2OffTime >= offDuration) {
